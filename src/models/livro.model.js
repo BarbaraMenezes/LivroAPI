@@ -1,6 +1,6 @@
 'use strict';
 
-var dbConn = require('./../config/db.config');
+var dbConn = require('./../../config/db.config');
 
 var Livro = function (livro) {
     this.nome = livro.nome;
