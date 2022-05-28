@@ -15,9 +15,9 @@ exports.findAll = function(req,res){
 }
 
 exports.create = function(req,res){
-    const livro = new livro(req.body);
+    const livro = new Livro(req.body);
 
-    if(req.body.construtor === object && object.keys(req.body).length ==0){
+    if(req.body.construtor === Object && Object.keys(req.body).length ==0){
         res.status(400).send({
             error: true, message: 'erro na requisição'
         });
@@ -44,7 +44,7 @@ exports.findById = function(req,res){
 }
 
 exports.update = function(req,res){
-    if(req.body.construtor === object && object.keys(req.body).length === 0){
+    if(req.body.construtor === Object && Object.keys(req.body).length === 0){
         res.status(400).send({
             error: true,
             message:"erro ao atualizar dados do livro"
@@ -64,13 +64,22 @@ exports.update = function(req,res){
 };
 
 exports.delete = function(req,res){
-    Livro.delete(req.params.id, function(err,livro){
-        if(err)
-        res.send(err);
-    
-        res.json({
-            error: true,
-            message:"Erro ao deletar"
-        });
+    var teste = new Livro();
+    let existe = Livro.findById(req.params.id,function(err,livro){
+        console.log(livro);
+            // teste = livro;
     });
+
+
+    console.log(teste);
+
+    // Livro.delete(req.params.id, function(err,livro){
+    //     if(err)
+    //     res.send(err);
+    
+    //     res.json({
+    //         error: true,
+    //         message:"Deletado com Sucesso!"
+    //     });
+    // });
 }
