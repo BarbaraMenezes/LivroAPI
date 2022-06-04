@@ -64,22 +64,42 @@ exports.update = function(req,res){
 };
 
 exports.delete = function(req,res){
-    var teste = new Livro();
-    let existe = Livro.findById(req.params.id,function(err,livro){
-        console.log(livro);
-            // teste = livro;
-    });
-
-
-    console.log(teste);
-
-    // Livro.delete(req.params.id, function(err,livro){
-    //     if(err)
-    //     res.send(err);
+    const id = req.params.id
+    Livro.delete(req.params.id, function(err,livro){
+        
+     if(err)
+         res.send(err);
     
-    //     res.json({
-    //         error: true,
-    //         message:"Deletado com Sucesso!"
-    //     });
-    // });
+         res.json({
+             error: false,
+             message:"Deletado com Sucesso!"
+         });
+     });
 }
+
+delete.get('/product-view/:id', async (req, res) => {    
+    const id = req.params.id    
+    try{    
+        if(!id) return res.status(404).send({ error: 'Livro não encontrado'})      
+        const product = await Livro.findById({_id: id});        
+        res.send(product);        
+
+    }catch(error){    
+       res.send({    
+            error: 'Error',
+            message: error.message    
+       })    
+    }       
+});
+
+/*exports.delete = function(req,res){
+    Livro.delete(req.params.id, function(err,livro){
+     if(err)
+         res.send(err);
+    
+         res.json({
+             error: false,
+             message:"Deletado com Sucesso!"
+         });
+     });
+}*/
